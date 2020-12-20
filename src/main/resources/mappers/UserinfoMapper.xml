@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsk.mappers.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.lsk.domain.Userinfo">
+    <id column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="total_money" jdbcType="DOUBLE" property="totalMoney" />
+    <result column="total_cost" jdbcType="DOUBLE" property="totalCost" />
+    <result column="mon_deposit" jdbcType="DOUBLE" property="monDeposit" />
+    <result column="year_deposit" jdbcType="DOUBLE" property="yearDeposit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `uid`, tel, start_date, total_money, total_cost, mon_deposit, year_deposit
+  </sql>
+ 
+  <select id="findUserByTel" parameterType="String" resultMap="BaseResultMap">
+    select * from t_userinfo where tel = #{tel}
+  </select>
+
+  <insert id="createUser" parameterType="String">
+    insert into t_userinfo values (#{tel})
+  </insert>
+
+  <insert id="updateUserInfo" parameterType="com.lsk.domain.Userinfo">
+    update
+        t_userinfo
+    set
+        total_cost = #{totalCost},mon_deposit = #{monDeposit},
+        year_deposit = #{yearDeposit}
+    where
+        tel = #{tel}
+  </insert>
+</mapper>
